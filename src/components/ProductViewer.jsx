@@ -1,5 +1,7 @@
 import clsx from "clsx";
 import { useMacbookStore } from "../store";
+import { Canvas } from "@react-three/fiber";
+import { Box, OrbitControls } from "@react-three/drei";
 
 const ProductViewer = () => {
     const {color , scale ,setColor ,setScale , reset} = useMacbookStore();
@@ -18,12 +20,15 @@ const ProductViewer = () => {
             
                 <div className="size-control">
                     <div onClick={() => setScale(0.06)} className={clsx(scale === 0.06 ? 'bg-white text-black' : 'bg-transparent text-white')}><p>14"</p></div>
-                    <div onClick={() => setScale(1.5)} className={clsx(scale === 1.5 ? 'bg-white text-black' : 'bg-transparent text-white')}><p>16"</p></div>
+                    <div onClick={() => setScale(0.08)} className={clsx(scale === 0.08 ? 'bg-white text-black' : 'bg-transparent text-white')}><p>16"</p></div>
                 </div>  
             </div>
         </div>
 
-        <p className="text-white text-4xl"> Render Canvas</p>
+        <Canvas id='canvas' camera={{position : [0 ,2 ,5] , fov: 50 , near: 0.1 , far: 100}}>
+            <Box position={[-1 ,1 ,0]} scale={10*scale} material-color={color}/>
+            <OrbitControls enableZoom={false}/>
+        </Canvas>
     </section>
   )
 }
